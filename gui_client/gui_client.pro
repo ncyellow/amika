@@ -1,16 +1,15 @@
 #-------------------------------------------------
 #
-# Project created by QtCreator 2019-04-14T22:56:17
+# Project created by QtCreator 2019-04-14T23:14:52
 #
 #-------------------------------------------------
 
-QT       -= gui
+QT       += core gui
 
-CONFIG += c++17
-TARGET = radare_client
-TEMPLATE = lib
+greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
-DEFINES += RADARE_CLIENT_LIBRARY
+TARGET = gui_client
+TEMPLATE = app
 
 # The following define makes your compiler emit warnings if you use
 # any feature of Qt which has been marked as deprecated (the exact warnings
@@ -23,42 +22,25 @@ DEFINES += QT_DEPRECATED_WARNINGS
 # You can also select to disable deprecated APIs only up to a certain version of Qt.
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
+CONFIG += c++11
+
 SOURCES += \
-        radareclient.cpp
+        main.cpp \
+        mainwindow.cpp
 
 HEADERS += \
-        radareclient.h \
-        radare_client_global.h 
+        mainwindow.h
 
-unix {
-    target.path = /usr/lib
-    INSTALLS += target
-}
+FORMS += \
+        mainwindow.ui
 
-INCLUDEPATH += /usr/include/libr
+# Default rules for deployment.
+qnx: target.path = /tmp/$${TARGET}/bin
+else: unix:!android: target.path = /opt/$${TARGET}/bin
+!isEmpty(target.path): INSTALLS += target
 
-LIBS += \
-    -lr_core \
-    -lr_config \
-    -lr_cons \
-    -lr_io \
-    -lr_util \
-    -lr_flag \
-    -lr_asm \
-    -lr_debug \
-    -lr_hash \
-    -lr_bin \
-    -lr_lang \
-    -lr_anal \
-    -lr_parse \
-    -lr_bp \
-    -lr_egg \
-    -lr_reg \
-    -lr_search \
-    -lr_syscall \
-    -lr_socket \
-    -lr_fs \
-    -lr_magic \
-    -lr_crypto
+#INCLUDEPATH += "./../radare_client"
 
-DESTDIR = "$$OUT_PWD/../LIBS"
+
+#LIBS += -L"$$OUT_PWD/../LIBS" -lradare_client
+
