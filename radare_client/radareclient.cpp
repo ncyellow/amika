@@ -1,4 +1,4 @@
-#include "iradare.h"
+#include "radareclient.h"
 
 #include <QString>
 #include <QDebug>
@@ -12,10 +12,9 @@
 #include <QJsonObject>
 
 namespace amika {
-namespace radare {
+namespace radare_client {
 
-
-class Radare::Impl
+class RadareClient::Impl
 {
 public:
     Impl();
@@ -39,19 +38,19 @@ private:
 };
 
 
-Radare::Impl::Impl()
+RadareClient::Impl::Impl()
 {
     r_cons_new();  // initialize console
     mCore = r_core_new();
 }
 
-Radare::Impl::~Impl()
+RadareClient::Impl::~Impl()
 {
     r_core_free(this->mCore);
     r_cons_free();
 }
 
-bool Radare::Impl::OpenFile(const QString &filename)
+bool RadareClient::Impl::OpenFile(const QString &filename)
 {
     RCoreFile *file = r_core_file_open(mCore, filename.toUtf8().constData(), 0, 0);
     if (!file) {
@@ -60,29 +59,27 @@ bool Radare::Impl::OpenFile(const QString &filename)
     }
 
     qDebug() << "open is correct";
-    cmdj("ia");
     r_core_file_close(mCore, file);
     return true;
 }
 
 
-Radare::Radare():
+RadareClient::RadareClient():
     mImpl(new Impl())
 {
 
 
 }
 
-Radare::~Radare()
+RadareClient::~RadareClient()
 {
 
 }
 
-bool Radare::OpenFile(const QString &filename)
+bool RadareClient::OpenFile(const QString &filename)
 {
     return mImpl->OpenFile(filename);
 }
-
 
 }
 }
