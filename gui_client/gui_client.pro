@@ -39,8 +39,6 @@ qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
-#INCLUDEPATH += "./../radare_client"
-
-
-#LIBS += -L"$$OUT_PWD/../LIBS" -lradare_client
+INCLUDEPATH += "./../radare_client"
+LIBS += -L"$$OUT_PWD/../LIBS" -lradare_client
 
